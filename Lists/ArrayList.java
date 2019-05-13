@@ -5,15 +5,15 @@ import Exceptions.FullArrayException;
 
 public class ArrayList<E> implements List<E> {
 
-	
 	private E[] elements;
 	private int pointer;
+	
+	//The Array begin with 10 spaces, and it will grow if it will be necessary
 	
 	public ArrayList() {
 		elements = (E[]) new Object[10];
 		pointer=0;
 	}
-	
 	
 	@Override
 	public boolean isEmpty() {
@@ -22,7 +22,7 @@ public class ArrayList<E> implements List<E> {
 
 	@Override
 	public boolean isFull() {
-		//It isn´t full, because the array grow dynamically
+		//It will never be full, because the array grow dynamically
 		return false;
 	}
 
@@ -49,7 +49,7 @@ public class ArrayList<E> implements List<E> {
 			throw new NullPointerException();
 		
 		if(pointer==elements.length) 
-			increaseTheSize(pointer);
+			increaseTheSize();
 		
 		if(index>pointer || index<0) 
 			throw new IndexOutOfBoundsException();
@@ -61,7 +61,9 @@ public class ArrayList<E> implements List<E> {
 		return true;
 	}
 
-	private void increaseTheSize(int pointer2) {
+	//This method increase the array, creating a new array with double size, and realocating the elements
+	
+	private void increaseTheSize() {
 		E[] oldElements = elements;
 		elements = (E[]) new Object[pointer*2];
 		for (int i = 0; i < oldElements.length; i++) 
